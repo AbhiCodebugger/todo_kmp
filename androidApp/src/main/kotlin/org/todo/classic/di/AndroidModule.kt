@@ -1,0 +1,34 @@
+package org.todo.classic.di
+
+import android.content.Context
+import android.content.SharedPreferences
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.dsl.viewModel
+import org.koin.dsl.module
+import org.todo.classic.presentation.Session.SessionViewModel
+import org.todo.classic.presentation.login.LoginViewModel
+import org.todo.classic.session.SessionStorage
+import org.todo.classic.session.SessionStorageImpl
+
+val androidModule = module {
+
+    single<SharedPreferences> {
+        androidContext().getSharedPreferences("todo_preferences", Context.MODE_PRIVATE)
+    }
+
+    single<SessionStorage> {
+        SessionStorageImpl(get())
+    }
+
+    viewModel {
+        SessionViewModel()
+    }
+    viewModel {
+        LoginViewModel(
+            loginUseCase = get(),
+            getCurrentUserUseCase = get(),
+            validateEmailUseCase = get(),
+            validatePasswordUseCase = get()
+        )
+    }
+}
