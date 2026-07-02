@@ -1,7 +1,10 @@
 package org.todo.classic.data.repository
+import org.todo.classic.data.repository.TokenRefresher
 
+import org.todo.classic.auth.AuthManager
 import org.todo.classic.data.dto.auth.LoginRequestDto
-import org.todo.classic.data.dto.auth.UserResponseDto
+import org.todo.classic.data.dto.auth.RefreshTokenRequestDto
+import org.todo.classic.data.dto.auth.RegisterRequestDto
 import org.todo.classic.data.remote.AuthApi
 import org.todo.classic.data.mapper.toDomain
 import org.todo.classic.data.network.ApiResult
@@ -9,12 +12,11 @@ import org.todo.classic.data.network.safeApiCall
 import org.todo.classic.domain.model.Session
 import org.todo.classic.domain.model.User
 import org.todo.classic.domain.repository.AuthRepository
-import org.todo.classic.session.SessionStorage
 
 class AuthRepositoryImpl(
     private val authApi: AuthApi,
-    private val sessionStorage: SessionStorage
-) : AuthRepository {
+    private val authManager: AuthManager
+) : AuthRepository, TokenRefresher {
 
     init {
         println("AuthRepository Created")
@@ -30,13 +32,34 @@ class AuthRepositoryImpl(
             ))
             println("Response : $response")
             val session = response.toDomain()
-            sessionStorage.save(session)
+            authManager.saveSession(session)
             session
         }
     }
 
-    override suspend fun register(email: String, password: String) {
-        TODO("Not yet implemented")
+    override suspend fun register(
+        name: String,
+        email: String,
+        password: String
+    ): ApiResult<User>{
+        return safeApiCall {
+             authApi.register(RegisterRequestDto(
+                name = name,
+                email = email,
+                password = password
+            )).data.toDomain()
+        }
+    }
+
+    override suspend fun refreshToken(refreshToken: String): ApiResult<String> {
+       return safeApiCall {
+           val response = authApi.refreshToken(
+               RefreshTokenRequestDto(
+                   refreshToken = refreshToken
+               )
+           )
+           response.data.accessToken
+       }
     }
 
     override suspend fun getCurrentUser(): ApiResult<User> {

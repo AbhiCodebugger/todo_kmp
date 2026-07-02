@@ -6,7 +6,9 @@ import org.todo.classic.data.repository.AuthRepositoryImpl
 import org.todo.classic.domain.repository.AuthRepository
 import org.todo.classic.domain.usecase.GetCurrentUserUseCase
 import org.todo.classic.domain.usecase.LoginUseCase
+import org.todo.classic.domain.usecase.RegisterUseCase
 import org.todo.classic.domain.validation.ValidateEmailUseCase
+import org.todo.classic.domain.validation.ValidateNameUseCase
 import org.todo.classic.domain.validation.ValidatePasswordUseCase
 import org.todo.classic.network.HttpClientFactory
 
@@ -24,6 +26,9 @@ val sharedModule = module {
         LoginUseCase(get())
     }
     factory {
+        RegisterUseCase(get())
+    }
+    factory {
         GetCurrentUserUseCase(get())
     }
 
@@ -32,6 +37,9 @@ val sharedModule = module {
     }
     factory {
         ValidatePasswordUseCase()
+    }
+    factory {
+        ValidateNameUseCase()
     }
 
 }

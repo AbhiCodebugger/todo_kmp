@@ -8,6 +8,8 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.todo.classic.presentation.Session.SessionViewModel
 import org.todo.classic.presentation.dashboard.DashboardScreen
 import org.todo.classic.presentation.login.LoginScreen
+import org.todo.classic.presentation.register.RegisterScreen
+import org.todo.classic.presentation.splash.SplashScreen
 
 @Composable
 fun AppNavGraph() {
@@ -15,13 +17,25 @@ fun AppNavGraph() {
     val sessionViewModel: SessionViewModel = koinViewModel()
     NavHost(
         navController = navController,
-        startDestination = Screen.Login.route
+        startDestination = Screen.Splash.route
     ) {
+        composable(Screen.Splash.route) {
+            SplashScreen(
+                navController = navController,
+                sessionViewModel = sessionViewModel
+            )
+        }
         composable(Screen.Login.route) {
             LoginScreen(
                 navController = navController,
                 sessionViewModel = sessionViewModel
                 )
+        }
+        composable(Screen.Register.route){
+            RegisterScreen(
+                navController = navController,
+
+            )
         }
         composable(Screen.Dashboard.route) {
             DashboardScreen(

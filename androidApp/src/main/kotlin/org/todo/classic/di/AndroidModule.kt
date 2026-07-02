@@ -7,6 +7,9 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import org.todo.classic.presentation.Session.SessionViewModel
 import org.todo.classic.presentation.login.LoginViewModel
+import org.todo.classic.presentation.register.RegisterScreen
+import org.todo.classic.presentation.register.RegisterViewModel
+import org.todo.classic.presentation.splash.SplashViewModel
 import org.todo.classic.session.SessionStorage
 import org.todo.classic.session.SessionStorageImpl
 
@@ -29,6 +32,20 @@ val androidModule = module {
             getCurrentUserUseCase = get(),
             validateEmailUseCase = get(),
             validatePasswordUseCase = get()
+        )
+    }
+    viewModel {
+        RegisterViewModel(
+            registerUseCase = get(),
+            validateNameUseCase = get(),
+            validateEmailUseCase = get(),
+            validatePasswordUseCase = get(),
+        )
+    }
+    viewModel {
+        SplashViewModel(
+            sessionStorage = get(),
+            getCurrentUserUseCase = get()
         )
     }
 }
