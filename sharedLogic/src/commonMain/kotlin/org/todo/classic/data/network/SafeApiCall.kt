@@ -6,6 +6,7 @@ import io.ktor.client.plugins.ServerResponseException
 import io.ktor.serialization.JsonConvertException
 import kotlinx.io.IOException
 import org.todo.classic.data.dto.ErrorResponseDTO
+import org.todo.classic.domain.result.ApiResult
 
 suspend inline fun <T> safeApiCall(crossinline apiCall: suspend ()-> T): ApiResult<T> {
     return try {

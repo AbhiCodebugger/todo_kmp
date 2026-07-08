@@ -14,7 +14,6 @@ import org.todo.classic.data.dto.auth.RefreshTokenResponseDto
 import org.todo.classic.data.dto.auth.RegisterRequestDto
 import org.todo.classic.data.dto.auth.RegisterResponseDto
 import org.todo.classic.data.dto.auth.UserResponseDto
-import org.todo.classic.data.network.ApiResult
 import org.todo.classic.network.ApiConfig
 
 class AuthApi (private val client: HttpClient) {

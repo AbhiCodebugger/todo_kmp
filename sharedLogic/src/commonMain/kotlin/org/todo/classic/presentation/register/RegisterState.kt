@@ -1,6 +1,6 @@
 package org.todo.classic.presentation.register
 
-data class RegisterUiState(
+data class RegisterState(
     val name: String = "",
     val email: String = "",
     val password: String = "",

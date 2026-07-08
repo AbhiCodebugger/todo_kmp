@@ -24,7 +24,6 @@ import org.todo.classic.presentation.components.AuthButton
 import org.todo.classic.presentation.components.AuthPasswordField
 import org.todo.classic.presentation.components.AuthTextField
 import org.todo.classic.presentation.navigation.NavigationResultKeys
-import org.todo.classic.presentation.navigation.Screen
 
 
 @Composable
@@ -32,7 +31,7 @@ fun RegisterScreen(
     navController: NavController,
     viewModel: RegisterViewModel = koinViewModel()
     ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.state.collectAsState()
 
     LaunchedEffect(uiState.isRegistered) {
 
@@ -52,21 +51,21 @@ fun RegisterScreen(
 
         AuthTextField(
             value = uiState.name,
-            onValueChange = viewModel::onNameChanged,
+            onValueChange = {viewModel.onEvent(RegisterEvent.NameChanged(it))},
             label = "Name",
             error = uiState.nameError
         )
         Spacer(modifier = Modifier.height(16.dp))
         AuthTextField(
             value = uiState.email,
-            onValueChange = viewModel::onEmailChanged,
+            onValueChange = {viewModel.onEvent(RegisterEvent.EmailChanged(it))},
             label = "Email",
             error = uiState.emailError
         )
         Spacer(modifier = Modifier.height(16.dp))
         AuthPasswordField(
             value = uiState.password,
-            onValueChange = viewModel::onPasswordChanged,
+            onValueChange = {viewModel.onEvent(RegisterEvent.PasswordChanged(it))},
             error = uiState.passwordError
         )
         Spacer(modifier = Modifier.height(26.dp))
@@ -82,7 +81,7 @@ fun RegisterScreen(
             text = "Register",
             loadingText = "Registering...",
             isLoading = uiState.isLoading,
-            onClick = viewModel::register
+            onClick = {viewModel.onEvent(RegisterEvent.RegisterClicked)}
         )
         Spacer(modifier = Modifier.height(16.dp))
 

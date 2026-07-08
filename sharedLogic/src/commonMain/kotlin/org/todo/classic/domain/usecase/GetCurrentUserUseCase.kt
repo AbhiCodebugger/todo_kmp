@@ -1,6 +1,6 @@
 package org.todo.classic.domain.usecase
 
-import org.todo.classic.data.network.ApiResult
+import org.todo.classic.domain.result.ApiResult
 import org.todo.classic.domain.model.User
 import org.todo.classic.domain.repository.AuthRepository
 

@@ -46,13 +46,13 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version = "3.5.0" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version = "3.5.0" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version = "3.5.0" }
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version = "3.5.0" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3Version" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose-viewmodel = {module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin"}
 koin-core-viewmodel = { module = "io.insert-koin:koin-core-viewmodel", version.ref = "koin" }
-
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

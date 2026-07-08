@@ -40,8 +40,7 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-//            implementation(libs.multiplatform.settings)
-//            implementation(libs.multiplatform.settings.no.args)
+            implementation(libs.ktor.client.auth)
             implementation(libs.koin.core)
         }
         androidMain.dependencies {

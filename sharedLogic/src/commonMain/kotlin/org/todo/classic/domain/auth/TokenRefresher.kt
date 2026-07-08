@@ -1,6 +1,6 @@
-package org.todo.classic.data.repository
+package org.todo.classic.domain.auth
 
-import org.todo.classic.data.network.ApiResult
+import org.todo.classic.domain.result.ApiResult
 
 interface TokenRefresher {
     suspend fun refreshToken(

@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.koin.compose.viewmodel.koinViewModel
-import org.todo.classic.presentation.Session.SessionViewModel
+import org.todo.classic.presentation.session.SessionViewModel
 import org.todo.classic.presentation.components.AuthButton
 import org.todo.classic.presentation.components.AuthPasswordField
 import org.todo.classic.presentation.components.AuthTextField
@@ -25,7 +25,8 @@ fun LoginScreen(
     navController: NavController,
     sessionViewModel: SessionViewModel,
     viewModel: LoginViewModel = koinViewModel()) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.state.collectAsState()
+
     val snackbarHostState = remember { SnackbarHostState() }
 
     val registerSuccess = navController.currentBackStackEntry
@@ -73,15 +74,19 @@ fun LoginScreen(
 
             AuthTextField(
                 value = uiState.email,
-                onValueChange = viewModel::onEmailChanged,
+                onValueChange = {
+                  viewModel.onEvent(LoginEvent.EmailChanged(it))
+                },
                 label = "Email",
                 error = uiState.emailError
         )
         Spacer(modifier = Modifier.height(16.dp))
         AuthPasswordField(
             value = uiState.password,
-            onValueChange = viewModel::onPasswordChanged,
-            error = uiState.passError
+            onValueChange = {
+                viewModel.onEvent(LoginEvent.PasswordChanged(it))
+            },
+            error = uiState.passwordError
         )
         Spacer(modifier = Modifier.height(26.dp))
         if (uiState.error != null){
@@ -96,7 +101,9 @@ fun LoginScreen(
             text = "Login",
             loadingText = "Logging in...",
             isLoading = uiState.isLoading,
-            onClick = viewModel::login
+            onClick = {
+                viewModel.onEvent(LoginEvent.LoginClicked)
+            }
         )
         Spacer(modifier = Modifier.height(16.dp))
 

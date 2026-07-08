@@ -1,13 +1,11 @@
 package org.todo.classic.data.repository
-import org.todo.classic.data.repository.TokenRefresher
 
-import org.todo.classic.auth.AuthManager
+import org.todo.classic.domain.auth.AuthManager
 import org.todo.classic.data.dto.auth.LoginRequestDto
-import org.todo.classic.data.dto.auth.RefreshTokenRequestDto
 import org.todo.classic.data.dto.auth.RegisterRequestDto
 import org.todo.classic.data.remote.AuthApi
 import org.todo.classic.data.mapper.toDomain
-import org.todo.classic.data.network.ApiResult
+import org.todo.classic.domain.result.ApiResult
 import org.todo.classic.data.network.safeApiCall
 import org.todo.classic.domain.model.Session
 import org.todo.classic.domain.model.User
@@ -16,7 +14,7 @@ import org.todo.classic.domain.repository.AuthRepository
 class AuthRepositoryImpl(
     private val authApi: AuthApi,
     private val authManager: AuthManager
-) : AuthRepository, TokenRefresher {
+) : AuthRepository {
 
     init {
         println("AuthRepository Created")
@@ -49,17 +47,6 @@ class AuthRepositoryImpl(
                 password = password
             )).data.toDomain()
         }
-    }
-
-    override suspend fun refreshToken(refreshToken: String): ApiResult<String> {
-       return safeApiCall {
-           val response = authApi.refreshToken(
-               RefreshTokenRequestDto(
-                   refreshToken = refreshToken
-               )
-           )
-           response.data.accessToken
-       }
     }
 
     override suspend fun getCurrentUser(): ApiResult<User> {
