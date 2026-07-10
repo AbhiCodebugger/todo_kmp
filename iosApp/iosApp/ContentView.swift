@@ -1,22 +1,20 @@
 import SwiftUI
+import SharedLogic
 
 struct ContentView: View {
-   @StateObject
-    private var router = AppRouter()
 
     var body: some View {
-        switch router.destination {
-        case .splash:
-            Text("Splash")
 
-        case .login:
-            Text("Login")
+        let state = LoginState(
+            email: "abc@xyz.com",
+            emailError: nil,
+            password: "",
+            passwordError: nil,
+            isLoading: false,
+            error: nil,
+            user: nil
+        )
 
-        case .register:
-            Text("Register")
-
-        case .dashboard:
-            Text("Dashboard")
-        }
+        return Text(state.email)
     }
 }

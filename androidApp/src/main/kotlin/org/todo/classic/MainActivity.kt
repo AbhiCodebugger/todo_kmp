@@ -15,7 +15,6 @@ import org.koin.android.ext.koin.androidContext
 import org.todo.classic.di.androidModule
 import org.todo.classic.di.initKoin
 import org.todo.classic.domain.auth.AuthManager
-import org.todo.classic.presentation.login.LoginScreen
 import org.todo.classic.presentation.navigation.AppNavGraph
 
 class MainActivity : ComponentActivity() {

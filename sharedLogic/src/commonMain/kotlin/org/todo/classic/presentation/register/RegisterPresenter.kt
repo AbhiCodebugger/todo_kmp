@@ -61,9 +61,8 @@ class RegisterPresenter(
             isLoading = true,
             error = null
         )
-
-            when(
-                val result = registerUseCase(
+        when(
+            val result = registerUseCase(
                     name = _state.value.name,
                     email = _state.value.email,
                     password = _state.value.password
