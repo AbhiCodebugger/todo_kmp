@@ -28,7 +28,7 @@ class AuthRepositoryImpl(
                 email = email,
                 password = password
             ))
-            println("Response : $response")
+            println("DEBUG: Response : $response")
             val session = response.toDomain()
             authManager.saveSession(session)
             session

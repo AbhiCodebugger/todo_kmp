@@ -10,20 +10,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.koin.compose.viewmodel.koinViewModel
+import org.todo.classic.presentation.session.AuthenticationState
+import org.todo.classic.presentation.session.SessionViewModel
 
 
 @Composable
 fun SplashScreen(
-    onNavigate : (AuthenticationState) -> Unit,
-    viewModel: SplashViewModel = koinViewModel()
+    sessionViewModel: SessionViewModel,
+    onNavigate : (AuthenticationState) -> Unit
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val state by sessionViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.onAppStarted()
-
+        sessionViewModel.initialSession()
     }
+
     LaunchedEffect(state.authenticationState) {
         when(state.authenticationState) {
             AuthenticationState.Loading -> Unit

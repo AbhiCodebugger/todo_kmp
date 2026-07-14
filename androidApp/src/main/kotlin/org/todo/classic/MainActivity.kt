@@ -27,11 +27,6 @@ class MainActivity : ComponentActivity() {
             androidContext(this@MainActivity)
             modules(androidModule)
         }
-        lifecycleScope.launch {
-            delay(15000)
-            val result = authManager.refreshToken()
-            println("Refresh Result = $result")
-        }
 
         setContent {
             MaterialTheme {

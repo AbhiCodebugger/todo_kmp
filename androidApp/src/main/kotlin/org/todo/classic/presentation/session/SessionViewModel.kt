@@ -14,12 +14,20 @@ class SessionViewModel(
     private val presenter: SessionPresenter
 ) : ViewModel() {
     val state = presenter.state
+
+    fun initialSession(){
+        viewModelScope.launch {
+            presenter.initialSession()
+        }
+    }
+
     fun onLoginSuccess(user: User) {
         presenter.onLoginSuccess(user)
     }
-    fun logout(){
+    fun logout(onLoggedOut: ()-> Unit = {}){
         viewModelScope.launch {
             presenter.logout()
+            onLoggedOut()
         }
     }
 }

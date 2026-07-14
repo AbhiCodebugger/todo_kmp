@@ -58,7 +58,10 @@ object HttpClientFactory {
                             }
                         }
                         sendWithoutRequest { request ->
-                            request.url.encodedPath.startsWith("/auth")
+                            val path = request.url.encodedPath
+                            path.endsWith("/login") ||
+                                    path.endsWith("/register") ||
+                                    path.endsWith("/refresh")
                         }
                     }
                 }

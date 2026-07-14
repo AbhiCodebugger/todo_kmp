@@ -1,4 +1,4 @@
-package org.todo.classic.presentation.startup
+package org.todo.classic.presentation.session
 
 sealed interface AuthenticationState {
     data object Loading : AuthenticationState

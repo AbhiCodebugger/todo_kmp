@@ -67,11 +67,7 @@ class DefaultAuthManager(
     }
 
     override suspend fun logout() {
-        println("Debug: Logout called")
-        println("Debug: Session before clear = ${sessionStorage.get()}")
         sessionStorage.clear()
         _session.value = null
-        println("Debug: Session after clear = ${sessionStorage.get()}")
-        println("Debug: In-memory session = ${_session.value}")
     }
 }

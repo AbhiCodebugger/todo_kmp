@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import org.todo.classic.presentation.session.SessionViewModel
 import org.todo.classic.presentation.navigation.Screen
-import org.todo.classic.presentation.startup.AuthenticationState
 
 
 @Composable
@@ -27,19 +26,7 @@ fun DashboardScreen(
     ) {
 
     val sessionState by sessionViewModel.state.collectAsState()
-
     val user = sessionState.user
-
-    LaunchedEffect(sessionState.authenticationState) {
-        if (sessionState.authenticationState != AuthenticationState.Authenticated) {
-            navController.navigate(Screen.Login.route) {
-                popUpTo(0) {
-                    inclusive = true
-                }
-                launchSingleTop = true
-            }
-        }
-    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -58,7 +45,11 @@ fun DashboardScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(onClick = {
-            sessionViewModel.logout()
+            sessionViewModel.logout {
+                navController.navigate(Screen.Login.route) {
+                    popUpTo(0) {inclusive = true}
+                }
+            }
         }) {
             Text(text = "Logout")
         }

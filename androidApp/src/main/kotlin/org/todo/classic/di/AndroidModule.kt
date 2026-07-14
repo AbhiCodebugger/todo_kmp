@@ -8,7 +8,6 @@ import org.koin.dsl.module
 import org.todo.classic.presentation.session.SessionViewModel
 import org.todo.classic.presentation.login.LoginViewModel
 import org.todo.classic.presentation.register.RegisterViewModel
-import org.todo.classic.presentation.startup.SplashViewModel
 import org.todo.classic.session.SessionStorage
 import org.todo.classic.session.SessionStorageImpl
 
@@ -24,9 +23,6 @@ val androidModule = module {
 
     viewModel {
         SessionViewModel(get())
-    }
-    viewModel {
-        SplashViewModel(get())
     }
 
     viewModel {

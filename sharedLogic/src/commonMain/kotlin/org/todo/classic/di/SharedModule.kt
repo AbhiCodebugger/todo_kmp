@@ -19,7 +19,6 @@ import org.todo.classic.network.HttpClientFactory
 import org.todo.classic.presentation.login.LoginPresenter
 import org.todo.classic.presentation.register.RegisterPresenter
 import org.todo.classic.presentation.session.SessionPresenter
-import org.todo.classic.presentation.startup.StartupPresenter
 
 val sharedModule = module {
     single {
@@ -44,11 +43,8 @@ val sharedModule = module {
     single<AuthRepository> {
         AuthRepositoryImpl(get(), get())
     }
-    factory {
-        SessionPresenter(get())
-    }
-    factory {
-        StartupPresenter(get())
+    single {
+        SessionPresenter(get(), get())
     }
     factory {
         LoginPresenter(
@@ -76,7 +72,7 @@ val sharedModule = module {
         GetCurrentUserUseCase(get())
     }
     factory {
-        LogoutUseCase(get())
+        LogoutUseCase(get(), get())
     }
 
     factory {
